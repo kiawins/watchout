@@ -10,6 +10,21 @@ text {
 .update {
   fill: #333;
 }
+
+.enemies{
+  fill: #FFBF0C;
+}
+
+.hero{
+  fill: #48DAFF;
+}
+
+.justInCase{
+  fill:#0CFFDC;
+}
+body{
+  background-image: url('bg.png');
+}
 /* Note: an asteroid image is included in this repo. 
 Feel free to use it if you like. */
 
