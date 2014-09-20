@@ -5,6 +5,16 @@ var width = 960,
     radius = 10;
     enemiesAmount = 30;
 
+var positions = function(n){
+  var data = [];
+  for (var i = 0; i< n; i++){
+    cx = Math.random() * width;
+    cy = Math.random() * height;
+    data.push([cx, cy]);
+  }
+  return data;
+}
+
 var svg = d3.select(".scoreboard").append("svg")
     .attr("width", width)
     .attr("height", height)
@@ -17,20 +27,15 @@ var hero = svg.append('circle')
     .attr('r', radius)
     .attr('class', 'hero')
 
-
-var positions = function(n){
-  var data = [];
-  for (var i = 0; i< n; i++){
-    cx = Math.random() * (width -radius);
-    cy = Math.random() * height - radius;
-    data.push([cx, cy]);
-  }
-  return data;
-}
+// var enemies = svg.data(positions(enemiesAmount)).enter().append('circle')
+//       .attr('r', radius)
+//       .attr('class', 'enemies')
+//       .attr('cx', function(d){return d[0]})
+//       .attr('cy', function(d){return d[1]})
 
 var update = function(data){
 
-  var enemies = svg.selectAll('enemies')
+  var enemies = svg.selectAll('.enemies')
       .data(data)
 
   enemies.enter().append('circle')
@@ -38,11 +43,19 @@ var update = function(data){
       .attr('class', 'enemies')
       .attr('cx', function(d){return d[0]})
       .attr('cy', function(d){return d[1]})
+
+  enemies.transition().duration(1500)
+      .attr('r', radius)
+      .attr('class', 'enemies')
+      .attr('cx', function(d){return d[0]})
+      .attr('cy', function(d){return d[1]})
 }
+
+update(positions(enemiesAmount));
 
 setInterval(function(){
   update(positions(enemiesAmount))
-},1000);
+},2500);
 
 //put the hero in the center - append circle (pass the x, y, fill, radius)
 //generate new data(n) randomly - each element should have (x,y,radius)
