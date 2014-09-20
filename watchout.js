@@ -20,12 +20,18 @@ var svg = d3.select(".scoreboard").append("svg")
     .attr("height", height)
   .append("g")
     // .attr("transform", "translate(32," + (height / 2) + ")");
-
+var functionalProgrammingIsForWeirdos = d3.behavior.drag()
+    .on('drag', function(){
+        var draggable = d3.select(this);
+        draggable.attr('cx', event.offsetX);
+        draggable.attr('cy', event.offsetY)
+    })
 var hero = svg.append('circle')
     .attr('cx', width/2)
     .attr('cy', height/2)
     .attr('r', radius)
     .attr('class', 'hero')
+    .call(functionalProgrammingIsForWeirdos)
 
 // var enemies = svg.data(positions(enemiesAmount)).enter().append('circle')
 //       .attr('r', radius)
